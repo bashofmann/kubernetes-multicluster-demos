@@ -1,0 +1,19 @@
+apiVersion: types.kubefed.io/v1beta1
+kind: FederatedConfigMap
+metadata:
+  name: test-configmap
+  namespace: test-namespace
+spec:
+  template:
+    data:
+      index.html: Hello cbk
+  placement:
+    clusters:
+    - name: dbl
+    - name: cbk
+  overrides:
+  - clusterName: dbl
+    clusterOverrides:
+    - path: /data
+      value:
+        index.html: Hello dbl

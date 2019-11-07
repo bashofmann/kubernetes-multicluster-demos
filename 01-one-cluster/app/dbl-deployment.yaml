@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-dbl
+  namespace: default
+spec:
+  selector:
+    matchLabels:
+      instance: nginx-dbl
+  template:
+    metadata:
+      labels:
+        instance: nginx-dbl
+        app: nginx
+    spec:
+      volumes:
+        - name: webroot
+          configMap:
+            name: test-configmap-dbl
+      containers:
+      - image: nginx
+        name: nginx
+        volumeMounts:
+          - name: webroot
+            mountPath: /usr/share/nginx/html
+        ports:
+        - containerPort: 80
+          name: http
+      nodeSelector:
+        failure-domain.beta.kubernetes.io/region: dbl

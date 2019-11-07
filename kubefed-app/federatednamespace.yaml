@@ -1,0 +1,14 @@
+apiVersion: types.kubefed.io/v1beta1
+kind: FederatedNamespace
+metadata:
+  name: test-namespace
+  namespace: test-namespace
+spec:
+  template:
+    metadata:
+      labels:
+        istio-injection: enabled
+  placement:
+    clusters:
+    - name: dbl
+    - name: cbk

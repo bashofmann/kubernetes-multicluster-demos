@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-cbk
+  namespace: default
+spec:
+  selector:
+    matchLabels:
+      instance: nginx-cbk
+  template:
+    metadata:
+      labels:
+        instance: nginx-cbk
+        app: nginx
+    spec:
+      volumes:
+        - name: webroot
+          configMap:
+            name: test-configmap-cbk
+      containers:
+      - image: nginx
+        name: nginx
+        volumeMounts:
+          - name: webroot
+            mountPath: /usr/share/nginx/html
+        ports:
+        - containerPort: 80
+          name: http
+      nodeSelector:
+        failure-domain.beta.kubernetes.io/region: cbk

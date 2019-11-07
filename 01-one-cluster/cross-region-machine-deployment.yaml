@@ -1,0 +1,58 @@
+apiVersion: cluster.k8s.io/v1alpha1
+kind: MachineDeployment
+metadata:
+  finalizers:
+  - foregroundDeletion
+  name: metakube-worker-7qlqh
+  namespace: kube-system
+spec:
+  minReadySeconds: 0
+  progressDeadlineSeconds: 600
+  replicas: 1
+  revisionHistoryLimit: 1
+  selector:
+    matchLabels:
+      machine: md-v6tswzr9td-zjg442sbgh
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        machine: md-v6tswzr9td-zjg442sbgh
+    spec:
+      providerSpec:
+        value:
+          cloudProvider: openstack
+          cloudProviderSpec:
+            availabilityZone: cbk1
+            domainName: ""
+            flavor: m1.small
+            floatingIpPool: ext-net
+            identityEndpoint: https://api.dbl.cloud.syseleven.net:5000/v3
+            image: CoreOS Stable (2019-10-17)
+            network: metakube-v6tswzr9td
+            nodeVolumeAttachLimit: 25
+            password: ""
+            region: cbk
+            rootDiskSizeGB: null
+            securityGroups:
+            - metakube-v6tswzr9td
+            subnet: 940dad59-aa22-4e58-aae7-d7bea0771ff6
+            tags:
+              metakube-cluster: v6tswzr9td
+            tenantID: ""
+            tenantName: ""
+            tokenId: ""
+            trustDevicePath: false
+            username: ""
+          operatingSystem: coreos
+          operatingSystemSpec:
+            distUpgradeOnBoot: false
+          sshPublicKeys:
+          - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDkV1pVzTOP8HG5Z8ifd4b/ujhkDlpYSJaoTp2r/N4y/viqKHUiILiSrC9X+LNbLyY7/f5doLYQiQquqouAC5VaUO2B+j7Fco/UMoMCSM1e8P95jZQkpvx6yRxxmqaMGTLbvwFRWUHjdShJZfnlHyLvIcyKCUbnAGI6aFSLIj4pZ3js8FmSS9BIWQsgq8wJeu8f15LBr0cLIXR6X1PoGNMXnjOdtNkzkCVFVUG1OgsWjrdM4nM+9dO0QL3tTSHXGBI7afg5r51c85QuHNaRegncb9NsfbTmRioY0oOkA1UTia/cDvIa8SJVv2d7aQcA6gebJqO+BM6a6KKFWqqB1h2bibhn1quzZNyQlxaLvJobKmSAuL1LKlYSrBNq656InVgDm/sqBjnxEZUV2us4tNhYfaGBx3IEL1tSiEfTsXw+fXC2vxFleTPgT8vIEedMD1g7Ylf3jMy3+jh/AhspZNI53jpJWdwg02lr7l9kgF/0LEt9JRKN+x7earr9o6XFonRt28xH+za5ubQlAzgFaYCmKJtqmGumdJ7ybGi7QfRBGdbfIf2Vb7nC/NL9fDsbZVOQ34wxRMo+53gwtyncGNdEDIjFDE/mOHcNf5/cFN6POTGeyk/2P9Mvg/UXR8Td5Oqyo2MGRk30Y5sK0CS81njk7chc/+ksUmDik+92XdpADQ==
+            b.hofmann@syseleven.de
+      versions:
+        kubelet: 1.15.5

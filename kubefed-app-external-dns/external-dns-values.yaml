@@ -1,0 +1,70 @@
+image:
+  tag: 0.5.17-debian-9-r0
+
+## This controls which types of resource external-dns should 'watch' for new
+## DNS entries.
+sources:
+  - crd
+
+crd:
+  apiversion: multiclusterdns.kubefed.io/v1alpha1
+  kind: DNSEndpoint
+
+## The DNS provider where the DNS records will be created (options: aws, google, inmemory, azure, rfc2136 )
+provider: aws
+
+#extraEnv:
+#  - name: OS_AUTH_URL
+#    value: https://api.cloud.syseleven.net:5000/v3
+#  - name: OS_REGION_NAME
+#    value: dbl
+#  - name: OS_USERNAME
+#    value: CHANGEME
+#  - name: OS_PASSWORD
+#    value: CHANGEME
+#  - name: OS_PROJECT_ID
+#    value: CHANGEME
+#  - name: OS_USER_DOMAIN_NAME
+#    value: Default
+
+#digitalocean:
+#  apiToken: CHANGEME
+
+# AWS Access keys to inject as environment variables
+aws:
+  credentials:
+    secretKey: "CHANGEME"
+    accessKey: "CHANGEME"
+    mountPath: "/.aws"
+    region: "eu-central-1"
+    zoneType: "public"
+    batchChangeSize: 1000
+
+## Limit possible target zones by domain suffixes (optional)
+domainFilters: [metakube.org]
+## Adjust the interval for DNS updates
+interval: "1m"
+
+# Registry to use for ownership (txt or noop)
+registry: "txt"
+
+# When using the TXT registry, a name that identifies this instance of ExternalDNS
+txtOwnerId: "multicluster"
+
+## Modify how DNS records are sychronized between sources and providers (options: sync, upsert-only )
+policy: sync
+
+# Verbosity of the logs (options: panic, debug, info, warning, error, fatal)
+logLevel: info
+
+## CPU and Memory limit and request for external-dns
+resources:
+  limits:
+    memory: 50Mi
+  requests:
+    memory: 50Mi
+    cpu: 10m
+
+rbac:
+  create: true
+  apiVersion: v1beta1

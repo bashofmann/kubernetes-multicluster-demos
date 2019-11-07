@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: test-configmap-cbk
+  namespace: default
+data:
+  index.html: Hello cbk

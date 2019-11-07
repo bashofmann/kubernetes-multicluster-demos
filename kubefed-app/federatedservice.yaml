@@ -1,0 +1,18 @@
+apiVersion: types.kubefed.io/v1beta1
+kind: FederatedService
+metadata:
+  name: test-service
+  namespace: test-namespace
+spec:
+  template:
+    spec:
+      selector:
+        app: nginx
+      type: ClusterIP
+      ports:
+        - name: http
+          port: 80
+  placement:
+    clusters:
+    - name: dbl
+    - name: cbk

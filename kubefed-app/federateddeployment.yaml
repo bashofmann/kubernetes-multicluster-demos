@@ -1,0 +1,41 @@
+apiVersion: types.kubefed.io/v1beta1
+kind: FederatedDeployment
+metadata:
+  name: test-deployment
+  namespace: test-namespace
+spec:
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      replicas: 3
+      selector:
+        matchLabels:
+          app: nginx
+      template:
+        metadata:
+          labels:
+            app: nginx
+        spec:
+          volumes:
+            - name: webroot
+              configMap:
+                name: test-configmap
+          containers:
+          - image: nginx
+            name: nginx
+            volumeMounts:
+              - name: webroot
+                mountPath: /usr/share/nginx/html
+  placement:
+    clusters:
+    - name: dbl
+    - name: cbk
+  overrides:
+  - clusterName: dbl
+    clusterOverrides:
+    - path: "/spec/replicas"
+      value: 5
+    - path: "/spec/template/spec/containers/0/image"
+      value: "nginx:1.17.0-alpine"

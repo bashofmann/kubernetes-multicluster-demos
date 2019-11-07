@@ -1,0 +1,14 @@
+apiVersion: kilo.squat.ai/v1alpha1
+kind: Peer
+metadata:
+  name: metakube-worker-jfl8d-6646b87d57-9kb9n
+spec:
+  allowedIPs:
+  - 172.26.0.0/16
+  - 192.168.2.0/16
+  - 10.4.0.1/32
+  - 10.10.11.0/24
+  endpoint:
+    ip: 185.56.129.153
+    port: 51820
+  publicKey: CHANGEME

@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: test-configmap-dbl
+  namespace: default
+data:
+  index.html: Hello dbl
